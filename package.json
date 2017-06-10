@@ -2,17 +2,21 @@
   "name": "tsns",
   "version": "0.0.1",
   "description": "",
-  "main": "dist/src/index.js",
+  "main": "dist/commands/tsns.js",
   "author": "Hernan Rajchert <hrajchert@gmail.com>",
   "license": "MIT",
+  "bin": {
+    "tsns": "dist/commands/tsns.js",
+    "tsns-run": "dist/commands/tsns-run.js"
+  },
   "scripts": {
     "commitmsg": "validate-commit-msg",
     "precommit": "run-s lint:*",
     "prepush": "run-s build-and:test",
     "lint:ts": "tslint --project tsconfig.json",
     "lint-and-fix:-ts": "tslint --project tsconfig.json --fix",
-    "start": "node dist/src/index.js",
-    "build": "rm -Rf dist && tsc",
+    "start": "node dist/index.js",
+    "build": "rm -Rf dist && tsc && chmod a+x dist/commands/tsns.js && chmod a+x dist/commands/tsns-run.js",
     "test": "mocha dist/**/*.test.js --debug --colors",
     "tdd": "run-p watch:*",
     "docker:build": "docker build -t ${npm_package_name}:${npm_package_version} .",
@@ -23,6 +27,8 @@
     "watch:test": "mocha dist/**/*.test.js -w --colors --debug --growl"
   },
   "dependencies": {
+    "@types/commander": "^2.9.1",
+    "commander": "^2.9.0",
     "typescript": "^2.3.2"
   },
   "devDependencies": {
@@ -30,6 +36,9 @@
     "@types/mocha": "^2.2.41",
     "@types/node": "^7.0.12",
     "@types/shelljs": "^0.7.1",
+    "@types/sinon": "^2.3.1",
+    "@types/proxyquire": "^1.3.27",
+    "proxyquire": "^1.8.0",
     "chai": "^3.5.0",
     "husky": "^0.13.3",
     "mocha": "^3.2.0",
