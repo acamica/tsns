@@ -1,10 +1,16 @@
 {
   "name": "tsns",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "",
   "main": "dist/commands/tsns.js",
   "author": "Hernan Rajchert <hrajchert@gmail.com>",
   "license": "MIT",
+  "files": [
+      "dist",
+      "Dockerfile",
+      "tsconfig.json",
+      "tslint.json"
+  ],
   "bin": {
     "tsns": "dist/commands/tsns.js",
     "tsns-run": "dist/commands/tsns-run.js"
