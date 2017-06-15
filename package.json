@@ -1,6 +1,6 @@
 {
   "name": "tsns",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "",
   "main": "dist/commands/tsns.js",
   "author": "Hernan Rajchert <hrajchert@gmail.com>",
@@ -13,7 +13,8 @@
   ],
   "bin": {
     "tsns": "dist/commands/tsns.js",
-    "tsns-run": "dist/commands/tsns-run.js"
+    "tsns-run": "dist/commands/tsns-run.js",
+    "tsns-build": "dist/commands/tsns-build.js"
   },
   "scripts": {
     "commitmsg": "validate-commit-msg",
@@ -22,7 +23,7 @@
     "lint:ts": "tslint --project tsconfig.json",
     "lint-and-fix:-ts": "tslint --project tsconfig.json --fix",
     "start": "node dist/index.js",
-    "build": "rm -Rf dist && tsc && chmod a+x dist/commands/tsns.js && chmod a+x dist/commands/tsns-run.js",
+    "build": "rm -Rf dist && tsc && chmod a+x dist/commands/tsns.js && chmod a+x dist/commands/tsns-run.js && chmod a+x dist/commands/tsns-build.js",
     "test": "mocha dist/**/*.test.js --debug --colors",
     "tdd": "run-p watch:*",
     "docker:build": "docker build -t ${npm_package_name}:${npm_package_version} .",

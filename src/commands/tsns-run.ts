@@ -16,9 +16,12 @@ readPackageJSON()
         program
             .version(packageJson.version)
             .description('Run your node app')
-            .option('-w, --watch', 'Watch for changes')
+            // .option('-w, --watch', 'Watch for changes')
+            // .option('-D, --debug [port]', 'Debug your typescript app')
+            .option('--no-build', 'Don\'t build the project before running it')
             .parse(process.argv);
         run(<any>program);
+
     }
     )
     .catch(err => console.error('There was an error running the program', err));

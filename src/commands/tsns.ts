@@ -13,7 +13,8 @@ const readPackageJSON = () => readJSON<IPackageJson>(join(root, 'package.json'))
 readPackageJSON()
     .then(packageJson =>
         program
-            .command('run', 'Run your typescript project')
+            .command('run', 'Builds and run the project')
+            .command('build', 'Builds the typescript project')
             .version(packageJson.version)
             .parse(process.argv)
     );
