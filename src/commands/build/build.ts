@@ -1,12 +1,13 @@
-import {exec, rm} from 'shelljs';
+// import {exec, rm} from 'shelljs';
+import {exec} from '../../utils/rx-exec';
 
 export interface IBuildOptions {
     watch: true | undefined;
 }
 
 export function build (options: IBuildOptions) {
-    rm('-rf', './dist'); // TODO: Try to delete only the generated files by this build
-    tsc(options);
+    // rm('-rf', './dist'); // TODO: Try to delete only the generated files by this build
+    return tsc(options);
 }
 
 /**
@@ -18,5 +19,6 @@ export function tsc (options: IBuildOptions) {
     if (options.watch) {
         optionString += '-w ';
     }
-    exec(`./node_modules/.bin/tsc ${optionString}`);
+    // return exec(`./node_modules/.bin/tsc ${optionString}`, {async: true});
+    return exec(`./node_modules/.bin/tsc ${optionString}`);
 }
