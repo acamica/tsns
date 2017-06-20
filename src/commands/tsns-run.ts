@@ -1,25 +1,14 @@
 #!/usr/bin/env node
-import {Observable} from 'rxjs';
 import * as program from 'commander';
-import {IPackageJson} from '../package.json';
-import {resolve, join} from 'path';
+import {tsnsVersion$} from '../utils/package-json';
 import {run} from './run/run';
 // import {pipeOutput, closeWithErrorWhenStatusCode} from '../utils/rx-exec';
 
-
-import {readJSON} from '../utils/promise-fs';
-
-const root = resolve(__dirname, '../../');
-
-// Function to read the project package json
-const readPackageJSON = () => Observable.fromPromise(readJSON<IPackageJson>(join(root, 'package.json')));
-
-
-readPackageJSON()
+tsnsVersion$
     // Configure the program options
-    .map(packageJson =>
+    .map(version =>
         program
-            .version(packageJson.version)
+            .version(version)
             .description('Run your node app')
             .option('-w, --watch', 'Watch for changes')
             // .option('-D, --debug [port]', 'Debug your typescript app')

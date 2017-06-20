@@ -1,26 +1,18 @@
 #!/usr/bin/env node
 import * as program from 'commander';
-import {IPackageJson} from '../package.json';
-import {resolve, join} from 'path';
+import {tsnsVersion$} from '../utils/package-json';
 import {build} from './build/build';
 import {pipeOutput, closeWithErrorWhenStatusCode} from '../utils/rx-exec';
-import {Observable} from 'rxjs';
 import * as moment from 'moment';
-import {readJSON} from '../utils/promise-fs';
-
-const root = resolve(__dirname, '../../');
-
-// Function to read the project package json
-const readPackageJSON = () => Observable.fromPromise(readJSON<IPackageJson>(join(root, 'package.json')));
 
 const begin = moment();
 
-readPackageJSON()
+tsnsVersion$
 
     // Configure the program options
-    .map(packageJson =>
+    .map(version =>
         program
-            .version(packageJson.version)
+            .version(version)
             .description('Builds your app using the tsc from your node modules')
             .option('-w, --watch', 'Watch for changes')
             .option('--no-unused-locals')

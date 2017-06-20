@@ -1,6 +1,5 @@
 // import {exec, rm} from 'shelljs';
 import {exec} from '../../utils/rx-exec';
-import {Observable} from 'rxjs/Observable';
 
 export interface IBuildOptions {
     watch: true | undefined;
