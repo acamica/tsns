@@ -1,8 +1,10 @@
 // import {exec, rm} from 'shelljs';
 import {exec} from '../../utils/rx-exec';
+import {Observable} from 'rxjs/Observable';
 
 export interface IBuildOptions {
     watch: true | undefined;
+    unusedLocals?: boolean;
 }
 
 export function build (options: IBuildOptions) {
@@ -19,6 +21,9 @@ export function tsc (options: IBuildOptions) {
     if (options.watch) {
         optionString += '-w ';
     }
-    // return exec(`./node_modules/.bin/tsc ${optionString}`, {async: true});
-    return exec(`./node_modules/.bin/tsc ${optionString}`);
+    if (!options.unusedLocals) {
+        optionString += '-noUnusedLocals ';
+    }
+    const command = `./node_modules/.bin/tsc ${optionString}`;
+    return exec(command);
 }
