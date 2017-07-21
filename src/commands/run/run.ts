@@ -1,6 +1,6 @@
 // import {exec} from 'shelljs';
 import {build, IBuildOptions} from '../build/build';
-import {readProjectPackageJSON} from '../../utils';
+import { readProjectPackageJSON, tryFiles } from '../../utils';
 import {Observable} from 'rxjs';
 import {exec} from '../../utils/rx-exec';
 import paths from '../../utils/paths';
@@ -29,12 +29,29 @@ export const runOnce = (main: string, options: IRunOptions) => {
 // Watch mode recipy
 export const nodemonBin = join(paths.libBin, 'nodemon');
 
-export const runNodeMon = (main: string) => exec(`${nodemonBin} ${main}`);
+export const runNodeMon = (main: string, configFile: string) =>
+                                                                Observable.of(`${nodemonBin} --config ${configFile} ${main}`)
+                                                                .do(cmd => console.log('cmd', cmd))
+                                                                .switchMap(cmd => exec(cmd));
 
-export const runWatch = (main: string) => Observable.merge(
-                                              runNodeMon(main),
-                                              build({watch: true})
-                                          );
+
+export const nodemonConfigFile$ = Observable
+                                    .of(
+                                        [
+                                            join(paths.project, 'nodemon.json'),
+                                            join(paths.tsnsRoot, 'src/commands/run/nodemon.json')
+                                        ]
+                                    )
+                                    .switchMap(files => tryFiles(files));
+
+
+export const runWatch = (main: string) =>
+                                        Observable.merge(
+                                            nodemonConfigFile$.switchMap(
+                                                configFile => runNodeMon(main, configFile)
+                                            ),
+                                            build({watch: true})
+                                        );
 
 export interface IRunOptions {
     watch: true | undefined;
