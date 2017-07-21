@@ -1,7 +1,10 @@
-import {resolve} from 'path';
+import {resolve, join} from 'path';
+const tsnsRoot = resolve(__dirname, '../../');
+
 export default {
     commands: resolve(__dirname, '../commands'),
     libBin: resolve(__dirname, '../../node_modules/.bin'),
-    tsnsRoot: resolve(__dirname, '../../'),
+    tsnsRoot,
+    defaultConfig: join(tsnsRoot, 'src/config'),
     project: process.cwd()
 };
