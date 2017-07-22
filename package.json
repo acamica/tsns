@@ -1,6 +1,6 @@
 {
   "name": "tsns",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "",
   "main": "dist/commands/tsns.js",
   "author": "Hernan Rajchert <hrajchert@gmail.com>",
@@ -9,7 +9,8 @@
     "dist",
     "Dockerfile",
     "tsconfig.json",
-    "tslint.json"
+    "tslint.json",
+    "default-config"
   ],
   "bin": {
     "tsns": "dist/commands/tsns.js",
