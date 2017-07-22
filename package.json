@@ -1,6 +1,6 @@
 {
   "name": "tsns",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "",
   "main": "dist/commands/tsns.js",
   "author": "Hernan Rajchert <hrajchert@gmail.com>",

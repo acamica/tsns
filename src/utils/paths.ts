@@ -5,6 +5,6 @@ export default {
     commands: resolve(__dirname, '../commands'),
     libBin: resolve(__dirname, '../../node_modules/.bin'),
     tsnsRoot,
-    defaultConfig: join(tsnsRoot, 'src/config'),
+    defaultConfig: join(tsnsRoot, 'config'),
     project: process.cwd()
 };
