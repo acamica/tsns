@@ -1,4 +1,4 @@
-// import {exec, rm} from 'shelljs';
+import {rm} from 'shelljs';
 import {exec} from '../../utils/rx-exec';
 
 export interface IBuildOptions {
@@ -7,7 +7,7 @@ export interface IBuildOptions {
 }
 
 export function build (options: IBuildOptions) {
-    // rm('-rf', './dist'); // TODO: Try to delete only the generated files by this build
+    rm('-r', './dist/**/*.{js,map,ts}');
     return tsc(options);
 }
 
