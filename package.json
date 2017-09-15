@@ -1,9 +1,13 @@
 {
   "name": "tsns",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "",
   "main": "dist/commands/tsns.js",
   "author": "Hernan Rajchert <hrajchert@gmail.com>",
+  "repository": {
+      "type": "git",
+      "url":"https://github.com/acamica/tsns"
+  },
   "license": "MIT",
   "files": [
     "dist",
