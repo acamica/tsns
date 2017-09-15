@@ -7,7 +7,7 @@ export interface IBuildOptions {
 }
 
 export function build (options: IBuildOptions) {
-    rm('-rf', './dist/**/*');
+    rm('-r', './dist/**/*.{js,map,ts}');
     return tsc(options);
 }
 
