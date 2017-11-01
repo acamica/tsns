@@ -27,7 +27,7 @@ export const runOnce = (main: string, options: IRunOptions) => {
 };
 
 // Watch mode recipy
-export const nodemonBin = Observable
+export const nodemonBin$ = Observable
                             .of(
                                 // Select the first file that exists
                                 [
@@ -36,9 +36,10 @@ export const nodemonBin = Observable
                                     join(paths.libBin, 'nodemon.js'),
                                 ]
                             )
-                            .switchMap(files => tryFiles(files));
+                            .switchMap(files => tryFiles(files))
+;
 
-export const runNodeMon = (main: string, configFile: string) => nodemonBin
+export const runNodeMon = (main: string, configFile: string) => nodemonBin$
                                                                 .map(nodemonBin => `${nodemonBin} --config ${configFile} ${main}`)
                                                                 .do(cmd => console.log('cmd', cmd))
                                                                 .switchMap(cmd => exec(cmd))
