@@ -1,6 +1,6 @@
 {
   "name": "tsns",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "",
   "main": "dist/commands/tsns.js",
   "author": "Hernan Rajchert <hrajchert@gmail.com>",
@@ -24,7 +24,6 @@
   "scripts": {
     "commitmsg": "validate-commit-msg",
     "precommit": "run-s lint:*",
-    "prepush": "run-s build-and:test",
     "lint:ts": "tslint --project tsconfig.json",
     "lint-and-fix:-ts": "tslint --project tsconfig.json --fix",
     "start": "node dist/index.js",
