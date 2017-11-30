@@ -24,6 +24,11 @@ export const writeFile = (path: string, data: any) => new Promise<void>(
 
 export const readJSON = <T>(path: string) => readFile(path)
                                             .then(buffer => JSON.parse(buffer.toString()) as T);
+
+export const writeJSON = <T> (path: string, newPackage: T) =>
+    writeFile(path, JSON.stringify(newPackage, null, 2))
+;
+
 export const access = (path: string, options?: number) => new Promise<boolean>(
     resolve => {
         // If error resolve(false) else resolve(true)

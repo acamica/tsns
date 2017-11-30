@@ -1,21 +1,13 @@
 import {Observable} from 'rxjs';
-import {IPackageJson} from '../../package.json';
-import {join} from 'path';
-import paths from '../paths';
+import { readTsnsPackageJSON } from './read-package';
 
-import {readJSON} from '../promise-fs';
-
-
-// Function to read the project package json
-const readPackageJSON = (path: string) =>
+const readTsnsPackageJSON$ = () =>
                             Observable.fromPromise(
-                                readJSON<IPackageJson>(path)
+                                readTsnsPackageJSON()
                             );
 
 
-export const getVersionFromPackageJSON = (path: string) => readPackageJSON(path)
+const getVersionFromPackageJSON = () => readTsnsPackageJSON$()
                                                         .map(packageJson => packageJson.version);
 
-
-export const projectVersion$ = getVersionFromPackageJSON(join(paths.project, 'package.json'));
-export const tsnsVersion$ = getVersionFromPackageJSON(join(paths.tsnsRoot, 'package.json'));
+export const tsnsVersion$ = getVersionFromPackageJSON();
