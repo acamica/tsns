@@ -1,5 +1,6 @@
 import {rm} from 'shelljs';
 import {exec} from '../../utils/rx-exec';
+import { Observable } from 'rxjs/Observable';
 
 export interface IBuildOptions {
     watch: true | undefined;
@@ -7,8 +8,11 @@ export interface IBuildOptions {
 }
 
 export function build (options: IBuildOptions) {
-    rm('-r', './dist/**/*.{js,map,ts}');
-    return tsc(options);
+    return Observable
+        .of(null)
+        .do(_ => rm('-r', './dist/**/*.{js,map,ts}'))
+        .switchMap(_ => tsc(options))
+    ;
 }
 
 /**
