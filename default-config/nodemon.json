@@ -1,6 +1,13 @@
 {
-  "verbose": true,
-  "ignore": ["*.test.js", "fixtures/*", "node_modules"],
-  "watch": ["dist"],
-  "delay": "500ms"
+    "watch": [
+        "src"
+    ],
+    "ext": "ts",
+    "ignore": [
+        "*.test.js",
+        "fixtures/*",
+        "node_modules"
+    ],
+    "delay": "500ms",
+    "exec": "node --inspect=0.0.0.0:9292"
 }
