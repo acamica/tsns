@@ -64,8 +64,16 @@ export const runWatch = (main: string) =>
                                                 configFile => runNodeMon(main, configFile)
                                             ),
                                             // Build the project in watch mode
-                                            build({watch: true})
+                                            // The 5s delay is to avoid deleting files needed by nodemon
+                                            // that starts at the same time. A better solution would be to
+                                            // avoid using nodemon and add a proper watch in RxJs
+                                            Observable.of(null)
+                                                .delay(5000)
+                                                .switchMapTo(
+                                                    build({ watch: true })
+                                                )
                                         );
+
 
 export interface IRunOptions {
     watch: true | undefined;
