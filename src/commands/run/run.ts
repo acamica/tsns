@@ -1,21 +1,14 @@
-// import {exec} from 'shelljs';
-import {build, IBuildOptions} from '../build/build';
+import {build} from '../build/build';
 import { readProjectPackageJSON, tryFiles } from '../../utils';
 import {Observable} from 'rxjs';
 import {exec} from '../../utils/rx-exec';
 import paths from '../../utils/paths';
+import { buildAndPipeOutput } from '../build/build';
 import {join} from 'path';
 import {pipeOutput, closeWithErrorWhenStatusCode} from '../../utils/rx-exec';
 
 // Single run recipy
 export const runNode = (main: string) => exec(`node ${main}`);
-
-export const buildAndPipeOutput = (options: IBuildOptions) =>
-                                        build(options)
-                                            .do(pipeOutput) // TODO: Shouldn't do side effect here
-                                            .switchMap(process => closeWithErrorWhenStatusCode(process.close$))
-                                            // Finish the chain once the process has finished
-                                            .first();
 
 export const runOnce = (main: string, options: IRunOptions) => {
     const buildOnce$ = buildAndPipeOutput({watch: undefined});
@@ -71,8 +64,16 @@ export const runWatch = (main: string) =>
                                                 configFile => runNodeMon(main, configFile)
                                             ),
                                             // Build the project in watch mode
-                                            build({watch: true})
+                                            // The 5s delay is to avoid deleting files needed by nodemon
+                                            // that starts at the same time. A better solution would be to
+                                            // avoid using nodemon and add a proper watch in RxJs
+                                            Observable.of(null)
+                                                .delay(5000)
+                                                .switchMapTo(
+                                                    build({ watch: true })
+                                                )
                                         );
+
 
 export interface IRunOptions {
     watch: true | undefined;

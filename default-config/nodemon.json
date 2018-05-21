@@ -1,6 +1,12 @@
 {
-  "verbose": true,
-  "ignore": ["*.test.js", "fixtures/*", "node_modules"],
-  "watch": ["dist"],
-  "delay": "500ms"
+    "watch": [
+        "src"
+    ],
+    "ext": "ts",
+    "ignore": [
+        "*.test.js",
+        "fixtures/*",
+        "node_modules"
+    ],
+    "delay": "5000ms"
 }
