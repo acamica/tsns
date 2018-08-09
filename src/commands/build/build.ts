@@ -4,7 +4,6 @@ import { Observable } from 'rxjs/Observable';
 
 export interface IBuildOptions {
     watch: true | undefined;
-    unusedLocals?: boolean;
 }
 
 export function build (options: IBuildOptions) {
@@ -23,9 +22,6 @@ export function tsc (options: IBuildOptions) {
     let optionString = '';
     if (options.watch) {
         optionString += '-w ';
-    }
-    if (!options.unusedLocals) {
-        optionString += '-noUnusedLocals ';
     }
     const command = `./node_modules/.bin/tsc ${optionString}`;
     return exec(command);

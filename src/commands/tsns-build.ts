@@ -15,7 +15,6 @@ tsnsVersion$
             .version(version)
             .description('Builds your app using the tsc from your node modules')
             .option('-w, --watch', 'Watch for changes')
-            .option('--no-unused-locals')
             .parse(process.argv)
     )
     // Build the project
