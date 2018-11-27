@@ -38,7 +38,7 @@
   "dependencies": {
     "commander": "^2.9.0",
     "moment": "^2.18.1",
-    "nodemon": "^1.11.0",
+    "nodemon": "^1.18.7",
     "rxjs": "^5.4.1",
     "shelljs": "^0.7.7",
     "typescript": "2.5.2"
@@ -48,7 +48,7 @@
     "@types/node": "^7.0.12",
     "@types/shelljs": "^0.7.1",
     "husky": "^0.13.3",
-    "npm-run-all": "^4.0.2",
+    "npm-run-all": "^4.1.5",
     "tslint": "^5.1.0",
     "tslint-config-acamica": "^1.0.1",
     "validate-commit-msg": "^2.12.1"
