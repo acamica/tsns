@@ -30,6 +30,9 @@ export async function init () {
     // Write the new package json back
     await writeProjectPackageJSON(newPackage);
 
+    // Ask for config the remote origin url
+    changeRemoteUrl(projectInfo.answer, projectInfo.name);
+
     // Reset git and make first commit
     resetGit(projectInfo.name);
 }
@@ -39,8 +42,10 @@ async function promptProjectInfo () {
     const folderName = paths.project.split('/').pop();
     const name = await askDefault(`Name [${folderName}]: `, folderName || '');
     const license = await askDefault('License [MIT]: ', 'MIT');
+    const projectUrl = getProjectUrl(name);
+    const answer = await askDefault(`Remote origin url "${projectUrl}"? [Y]`, 'Y');
     close();
-    return {name, license};
+    return {name, license, answer};
 }
 
 // Get a string with the users git info, like "Hernan Rajchert <hrajchert@gmail.com>"
@@ -63,4 +68,21 @@ function resetGit (projectName: string) {
     exec(`git init "${paths.project}"`);
     exec('git add .');
     exec(`git commit -m "chore(general): Initialize ${projectName}"`);
+}
+
+function getProjectUrl (projectName: string) {
+    const username = getGitUserInfo().name;
+    return `https://github.com/${username}/${projectName}.git`;
+}
+
+function changeRemoteUrl (answer: string, projectName: string) {
+    if (answer.toLowerCase() === 'y' || answer.toLowerCase() === 'yes') {
+        execChangeRemoteUrl(projectName);
+    }
+}
+
+// Execute the command for changing the remote origin url
+function execChangeRemoteUrl (projectName: string) {
+    const projectUrl = getProjectUrl(projectName);
+    exec(`git remote add origin ${projectUrl}`);
 }
